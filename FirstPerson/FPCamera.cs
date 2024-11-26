@@ -30,6 +30,14 @@ public class FPCamera : MonoBehaviour
 
     private Vector2 m_InputValue;
 
+    private void Start()
+    {
+        if(Camera.main != null && Camera.main != m_Camera)
+        {
+            Destroy(Camera.main.gameObject);
+        }
+    }
+
     public void RotateCamera(Vector2 InputValue) 
     { 
         m_InputValue = InputValue;

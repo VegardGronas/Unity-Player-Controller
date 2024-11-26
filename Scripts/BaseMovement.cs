@@ -10,12 +10,28 @@ public class BaseMovement : MonoBehaviour
     public MovementMove MovementMode {  get { return m_MovementMode; } set { m_MovementMode = value; } }
 
     [SerializeField]
-    protected float m_WalkSpeed = 1;
+    protected float m_GravityValue = -9.3f;
+    public float GravityValue => m_GravityValue;
+
+    [SerializeField]
+    protected float m_JumpStrength = 10f;
+
+    [SerializeField]
+    protected float m_AirTimeDampner = 10f;
+
+    protected float m_VerticalVelocityFactor = 0;
+
+    [SerializeField]
+    protected float m_WalkSpeed = 5f;
     public float WalkSpeed { get { return m_WalkSpeed; } set { m_WalkSpeed = value; } }
 
     [SerializeField]
-    protected float m_SprintSpeed = 2;
+    protected float m_SprintSpeed = 8f;
     public float SprintSpeed { get { return m_SprintSpeed; } set { m_SprintSpeed = value; } }
+
+    [SerializeField]
+    protected float m_CurrentMoveSpeed;
+    public float CurrentMoveSpeed { get { return m_CurrentMoveSpeed; } set { m_CurrentMoveSpeed = value; } }
 
     protected CharacterController m_CharacterController;
     public CharacterController CharacterController => m_CharacterController;
@@ -23,17 +39,23 @@ public class BaseMovement : MonoBehaviour
     protected bool m_IsMoving;
     public bool IsMoving => m_IsMoving;
 
+    [SerializeField]
+    protected bool m_IsGrounded;
+    public bool IsGrounded => m_IsGrounded;
+
     protected Vector2 m_InputValue;
 
     protected virtual void Awake()
     {
+        m_CurrentMoveSpeed = m_WalkSpeed;
+        m_VerticalVelocityFactor = m_GravityValue;
         m_MovementMode = MovementMove.Normal;
+        m_CharacterController = GetComponent<CharacterController>();
     }
 
     protected virtual void Update()
     {
-        if (!m_CharacterController.isGrounded) m_MovementMode = MovementMove.Falling;
-        else m_MovementMode = MovementMove.Normal;
+        m_IsGrounded = m_CharacterController.isGrounded;
 
         m_IsMoving = m_InputValue.magnitude > 0.01f;
 
@@ -41,9 +63,6 @@ public class BaseMovement : MonoBehaviour
         {
             case MovementMove.Normal:
                 NormalMove();
-                break;
-            case MovementMove.Falling:
-                Gravity();
                 break;
             case MovementMove.Swimming:
                 SwimmingMove();
@@ -62,6 +81,7 @@ public class BaseMovement : MonoBehaviour
         m_InputValue = inputValue;
     }
 
+    public virtual void Jump() { }
     protected virtual void NormalMove() { }
     protected virtual void Gravity() { }
     protected virtual void SwimmingMove() { }

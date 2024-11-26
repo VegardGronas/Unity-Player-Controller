@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class FPMove : BaseMovement
 {
+    protected override void Update()
+    {
+        ///Have to performe the gravcity before the base, in order for the charactercontroller to correcly check if grounded.
+        Gravity();
+
+        m_VerticalVelocityFactor = Mathf.Lerp(m_VerticalVelocityFactor, m_GravityValue, m_AirTimeDampner * Time.deltaTime);
+
+        base.Update();
+    }
+
     protected override void NormalMove()
     {
         Vector3 forward = transform.forward * m_InputValue.y;
         Vector3 right = transform.right * m_InputValue.x;
         Vector3 targetMoveDirection = forward + right;
     
-        m_CharacterController.Move(m_WalkSpeed * Time.deltaTime * targetMoveDirection);
+        m_CharacterController.Move(m_CurrentMoveSpeed * Time.deltaTime * targetMoveDirection);
+    }
+
+    public override void Jump()
+    {
+        m_VerticalVelocityFactor = m_JumpStrength;
     }
 
     protected override void SwimmingMove()
@@ -18,6 +33,9 @@ public class FPMove : BaseMovement
 
     }
 
+    /// <summary>
+    /// Currently some placeholder values in here.
+    /// </summary>
     protected override void ClimbingMove()
     {
         Vector3 up = transform.up * m_InputValue.y;
@@ -29,7 +47,7 @@ public class FPMove : BaseMovement
 
     protected override void Gravity()
     {
-        m_CharacterController.Move(-9f * Time.deltaTime * Vector3.up);
+        m_CharacterController.Move(m_VerticalVelocityFactor * Time.deltaTime * Vector3.up);
     }
 
     protected override void GlidingMove()
