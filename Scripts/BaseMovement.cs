@@ -62,13 +62,13 @@ public class BaseMovement : MonoBehaviour
         switch (m_MovementMode)
         {
             case MovementMove.Normal:
-                NormalMove();
+                if(m_IsMoving) NormalMove();
                 break;
             case MovementMove.Swimming:
-                SwimmingMove();
+                if (m_IsMoving) SwimmingMove();
                 break;
             case MovementMove.Climbing:
-                ClimbingMove();
+                if (m_IsMoving) ClimbingMove();
                 break;
             case MovementMove.Gliding:
                 GlidingMove();

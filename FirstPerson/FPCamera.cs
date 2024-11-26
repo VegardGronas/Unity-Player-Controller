@@ -15,6 +15,9 @@ public class FPCamera : MonoBehaviour
     Transform m_PitchTransform;
 
     [SerializeField]
+    bool m_InvertPitch = true;
+
+    [SerializeField]
     float m_HorizontalSensitivity = 1;
 
     [SerializeField]
@@ -42,8 +45,9 @@ public class FPCamera : MonoBehaviour
     { 
         m_InputValue = InputValue;
 
-        m_CurrentPitchValue += InputValue.y * m_VerticalSensitivity;
-        
+        if(m_InvertPitch) m_CurrentPitchValue -= InputValue.y * m_VerticalSensitivity;
+        else m_CurrentPitchValue += InputValue.y * m_VerticalSensitivity;
+
         m_CurrentPitchValue = Mathf.Clamp(m_CurrentPitchValue, m_PitchMinClampedValue, m_PitchMaxClampedValue);
 
         m_CurrentYawValue += InputValue.x * m_HorizontalSensitivity;
