@@ -1,0 +1,1 @@
+public enum MovementMove { Normal, Falling, Swimming, Climbing, Gliding }
