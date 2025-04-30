@@ -39,6 +39,9 @@ public class BaseMovement : MonoBehaviour
     protected bool m_IsMoving;
     public bool IsMoving => m_IsMoving;
 
+    protected bool m_IsSprinting;
+    public bool IsSprinting => m_IsSprinting;
+
     [SerializeField]
     protected bool m_IsGrounded;
     public bool IsGrounded => m_IsGrounded;
@@ -79,6 +82,14 @@ public class BaseMovement : MonoBehaviour
     public void Move(Vector2 inputValue)
     {
         m_InputValue = inputValue;
+    }
+
+    public void ToggleSprint(bool sprinting)
+    {
+        m_IsSprinting = sprinting;
+
+        if (m_IsSprinting) CurrentMoveSpeed = SprintSpeed;
+        else CurrentMoveSpeed = WalkSpeed;
     }
 
     public virtual void Jump() { }

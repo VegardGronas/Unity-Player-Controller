@@ -40,7 +40,7 @@ public class ThirdPerson : MonoBehaviour
 
     private void LateUpdate()
     {
-        m_TPCamera.transform.position = transform.position;
+        m_TPCamera.FollowTarget(transform.position);
     }
 
     public void EnableInput()
@@ -84,7 +84,7 @@ public class ThirdPerson : MonoBehaviour
     }
     public void SprintInput(InputAction.CallbackContext context)
     {
-        if (context.performed) m_TPMove.CurrentMoveSpeed = m_TPMove.SprintSpeed;
-        else m_TPMove.CurrentMoveSpeed = m_TPMove.WalkSpeed;
+        if (context.performed) m_TPMove.ToggleSprint(true);
+        else m_TPMove.ToggleSprint(false);
     }
 }

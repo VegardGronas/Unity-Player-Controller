@@ -6,13 +6,27 @@ public class TPAnimations : MonoBehaviour
     TPMove m_TPMove;
 
     [SerializeField]
-    string m_IsMovingAnimName = "IsMoving";
+    string moveBlendName = "StandardMoveblend";
 
     [SerializeField]
     Animator m_Animator;
 
+    [SerializeField] float blendSpeed = 5f;
+
+    private float currentBlend = 0;
+    private float targetBlend = 0;
+
     private void Update()
     {
-        m_Animator.SetBool(m_IsMovingAnimName, m_TPMove.IsMoving);
+        if (m_TPMove.IsMoving)
+        {
+            if (m_TPMove.IsSprinting) targetBlend = 1;
+            else targetBlend = .5f;
+        }
+        else targetBlend = 0;
+
+        currentBlend = Mathf.Lerp(currentBlend, targetBlend, blendSpeed * Time.deltaTime);
+
+        m_Animator.SetFloat(moveBlendName, currentBlend);
     }
 }

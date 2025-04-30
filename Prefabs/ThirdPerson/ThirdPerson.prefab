@@ -163,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 532714494322884292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.676, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_VerticalSensitivity: 0.1
   m_PitchMinClampedValue: -90
   m_PitchMaxClampedValue: 90
+  offset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &2004287310723941691
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_MovementMode: 0
   m_GravityValue: -9.3
   m_JumpStrength: 10
-  m_AirTimeDampner: 10
+  m_AirTimeDampner: 2
   m_WalkSpeed: 2
   m_SprintSpeed: 4
   m_CurrentMoveSpeed: 0
@@ -369,8 +370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TPMove: {fileID: 6780224614051334459}
-  m_IsMovingAnimName: IsMoving
+  moveBlendName: StandardMoveblend
   m_Animator: {fileID: 2485239559121623810}
+  blendSpeed: 10
 --- !u!1 &6874476635981575449
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +398,7 @@ Transform:
   m_GameObject: {fileID: 6874476635981575449}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -2.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

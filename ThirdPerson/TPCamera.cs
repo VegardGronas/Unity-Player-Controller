@@ -36,12 +36,21 @@ public class TPCamera : MonoBehaviour
 
     private Vector2 m_InputValue;
 
+    [SerializeField] private Vector3 offset = new(0, .5f, 0);
+
     private void Start()
     {
         if (Camera.main != null && Camera.main != m_Camera)
         {
             Destroy(Camera.main.gameObject);
         }
+    }
+
+    public void FollowTarget(Vector3 targetPosition)
+    {
+        Vector3 newPos = targetPosition + offset;
+
+        transform.position = newPos;
     }
 
     public void RotateCamera(Vector2 InputValue)
